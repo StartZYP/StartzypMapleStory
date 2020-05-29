@@ -556,6 +556,7 @@ public class MapleCharacter extends AbstractMapleCharacterObject {
         return getJobStyle((byte) ((this.getStr() > this.getDex()) ? 0x80 : 0x40));
     }
 
+
     public static MapleCharacter getDefault(MapleClient c) {
         MapleCharacter ret = new MapleCharacter();
         ret.client = c;
@@ -857,6 +858,10 @@ public class MapleCharacter extends AbstractMapleCharacterObject {
         }
 
     }
+
+
+
+
 
     public static boolean ban(String id, String reason, boolean accountId) {
         PreparedStatement ps = null;
@@ -5315,6 +5320,8 @@ public class MapleCharacter extends AbstractMapleCharacterObject {
         }
         return -1;
     }
+
+
     
     public static int getIdByName(String name) {
         try {
@@ -5507,7 +5514,7 @@ public class MapleCharacter extends AbstractMapleCharacterObject {
     }
     
     public int getMaxClassLevel() {
-        return isCygnus() ? 120 : 200;
+        return 200;
     }
     
     public int getMaxLevel() {
@@ -11409,17 +11416,20 @@ public class MapleCharacter extends AbstractMapleCharacterObject {
         throw new RuntimeException();
     }
 
-    public void executeReborn() {
+    public void executeReborn(int num) {
         if (!YamlConfig.config.server.USE_REBIRTH_SYSTEM) {
             yellowMessage("Rebirth system is not enabled!");
             throw new NotEnabledException();
         }
-        if (getLevel() != 200) {
-            return;
-        }
         addReborns();
-        changeJob(MapleJob.BEGINNER);
-        setLevel(0);
+        if (num ==1){
+            changeJob(MapleJob.LEGEND);
+        }else if (num==2){
+            changeJob(MapleJob.NOBLESSE);
+        }else {
+            changeJob(MapleJob.BEGINNER);
+        }
+        setLevel(1);
         levelUp(true);
     }
     

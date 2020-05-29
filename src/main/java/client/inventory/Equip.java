@@ -23,6 +23,7 @@ package client.inventory;
 
 import client.MapleCharacter;
 import client.MapleClient;
+import config.EquipLevelConfig;
 import config.YamlConfig;
 import constants.game.ExpTable;
 import constants.inventory.ItemConstants;
@@ -65,7 +66,7 @@ public class Equip extends Item {
     }
     
     private byte upgradeSlots;
-    private byte level, itemLevel;
+    private int level, itemLevel;
     private short flag;
     private short str, dex, _int, luk, hp, mp, watk, matk, wdef, mdef, acc, avoid, hands, speed, jump, vicious;
     private float itemExp;
@@ -269,7 +270,7 @@ public class Equip extends Item {
         this.upgradeSlots = upgradeSlots;
     }
 
-    public byte getLevel() {
+    public int getLevel() {
         return level;
     }
 
@@ -389,79 +390,80 @@ public class Equip extends Item {
             switch (stat.getLeft()) {
                 case incDEX:
                     //statUp = Math.min(stat.getRight(), maxStat - dex);//lynfan 原始代码
-                    statUp = Math.min((int) Math.ceil(dex * 0.05), maxStat - dex);//lynfan 属性增长是dex+dex*20%。
+                    statUp = Math.min((int) Math.ceil(dex * 0.01), maxStat - dex);//lynfan 属性增长是dex+dex*20%。
                     dex += statUp;
                     lvupStr += "+" + statUp + "敏捷 ";
                     break;
                 case incSTR:
                     //statUp = Math.min(stat.getRight(), maxStat - str);//lynfan 原始代码
-                    statUp = Math.min((int)Math.ceil(str * 0.05), maxStat - str);//lynfan，属性增长是str+str*20%。
+                    statUp = Math.min((int)Math.ceil(str * 0.01), maxStat - str);//lynfan，属性增长是str+str*20%。
                     str += statUp;
                     lvupStr += "+" + statUp + "力量 ";
                     break;
                 case incINT:
                     //statUp = Math.min(stat.getRight(), maxStat - _int);//lynfan 原始代码
-                    statUp = (int)Math.min(Math.ceil(_int * 0.05), maxStat - _int);//lynfan 属性增长是*20%
+                    statUp = (int)Math.min(Math.ceil(_int * 0.01), maxStat - _int);//lynfan 属性增长是*20%
                     _int += statUp;
                     lvupStr += "+" + statUp + "智力 ";
                     break;
                 case incLUK:
                     //statUp = Math.min(stat.getRight(), maxStat - luk);//lynfan 原始代码
-                    statUp = (int)Math.min(Math.ceil(luk * 0.05), maxStat - luk);//lynfan 属性增长是*20%
+                    statUp = (int)Math.min(Math.ceil(luk * 0.01), maxStat - luk);//lynfan 属性增长是*20%
                     luk += statUp;
                     lvupStr += "+" + statUp + "运气 ";
                     break;
                 case incMHP:
                     //statUp = Math.min(stat.getRight(), maxStat - hp);//lynfan 原始代码
-                    statUp = (int)Math.min(Math.ceil(hp * 0.1), maxStat - hp);//lynfan 属性增长是*50%
+                    statUp = (int)Math.min(Math.ceil(hp * 0.01), maxStat - hp);//lynfan 属性增长是*50%
                     hp += statUp;
                     lvupStr += "+" + statUp + "HP ";
                     break;
                 case incMMP:
                     //statUp = Math.min(stat.getRight(), maxStat - mp);//lynfan 原始代码
-                    statUp = (int)Math.min(Math.ceil(mp * 0.1), maxStat - mp);//lynfan 属性增长是*50%
+                    statUp = (int)Math.min(Math.ceil(mp * 0.01), maxStat - mp);//lynfan 属性增长是*50%
                     mp += statUp;
                     lvupStr += "+" + statUp + "MP ";
                     break;
                 case incPAD:
                     //statUp = Math.min(stat.getRight(), maxStat - watk);//lynfan 原始代码
-                    statUp = (int)Math.min(Math.ceil(watk * 0.05), maxStat - watk);//lynfan 属性增长是*20%
+                    statUp = (int)Math.min(Math.ceil(watk * 0.01), maxStat - watk);//lynfan 属性增长是*20%
                     watk += statUp;
                     lvupStr += "+" + statUp + "物理攻击 ";
                     break;
                 case incMAD:
                     //statUp = Math.min(stat.getRight(), maxStat - matk);//lynfan 原始代码
-                    statUp = (int)Math.min(Math.ceil(matk * 0.05), maxStat - matk);//lynfan 属性增长是*50%
+                    statUp = (int)Math.min(Math.ceil(matk * 0.01), maxStat - matk);//lynfan 属性增长是*50%
                     matk += statUp;
                     lvupStr += "+" + statUp + "魔法攻击 ";
                     break;
                 case incPDD:
-                    statUp = Math.min(stat.getRight(), maxStat - wdef);
+                    statUp = (int)Math.min(Math.ceil(wdef * 0.01), maxStat - wdef);
+
                     wdef += statUp;
                     lvupStr += "+" + statUp + "物理防御 ";
                     break;
                 case incMDD:
-                    statUp = Math.min(stat.getRight(), maxStat - mdef);
+                    statUp = (int)Math.min(Math.ceil(mdef * 0.01), maxStat - mdef);
                     mdef += statUp;
                     lvupStr += "+" + statUp + "魔法防御 ";
                     break;
                 case incEVA:
-                    statUp = Math.min(stat.getRight(), maxStat - avoid);
+                    statUp = (int)Math.min(Math.ceil(avoid * 0.01), maxStat - avoid);
                     avoid += statUp;
                     lvupStr += "+" + statUp + "闪避 ";
                     break;
                 case incACC:
-                    statUp = Math.min(stat.getRight(), maxStat - acc);
+                    statUp = (int)Math.min(Math.ceil(acc * 0.01), maxStat - acc);
                     acc += statUp;
                     lvupStr += "+" + statUp + "命中 ";
                     break;
                 case incSpeed:
-                    statUp = Math.min(stat.getRight(), maxStat - speed);
+                    statUp = (int)Math.min(Math.ceil(speed * 0.01), maxStat - speed);
                     speed += statUp;
                     lvupStr += "+" + statUp + "速度 ";
                     break;
                 case incJump:
-                    statUp = Math.min(stat.getRight(), maxStat - jump);
+                    statUp = (int)Math.min(Math.ceil(jump * 0.01), maxStat - jump);
                     jump += statUp;
                     lvupStr += "+" + statUp + "跳跃力 ";
                     break;
@@ -573,8 +575,14 @@ public class Equip extends Item {
         if(!ii.isUpgradeable(this.getItemId())) {
             return;
         }
-        
+
         int equipMaxLevel = Math.min(30, Math.max(ii.getEquipLevel(this.getItemId(), true), YamlConfig.config.server.USE_EQUIPMNT_LVLUP));
+        EquipLevelConfig tmp = new EquipLevelConfig();
+        tmp.setId(this.getItemId());
+        if (YamlConfig.config.equipLevel.contains(tmp)){
+            EquipLevelConfig equipLevel = YamlConfig.config.equipLevel.get(YamlConfig.config.equipLevel.indexOf(tmp));
+            equipMaxLevel = equipLevel.MaxLevel;
+        }
         int reqLevel = ii.getEquipLevelReq(this.getItemId());
         //int equipMaxLevel = ((ii.getReqLevel(this.getItemId())+30) / 30)*YamlConfig.config.server.USE_EQUIPMNT_LVLUP;//lynfan以上语句：装备经验升级级别随等级增加，1-29级装备，可升级7级，30-59级可升级2*7=14,60-89级可升级3*7=21级
         if (itemLevel >= equipMaxLevel) {
@@ -673,7 +681,7 @@ public class Equip extends Item {
         wear = yes;
     }
 
-    public byte getItemLevel() {
+    public int getItemLevel() {
         return itemLevel;
     }
          //lynfan 以下语句增加装备升级经验转移到新装备的功能

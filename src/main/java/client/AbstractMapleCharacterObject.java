@@ -562,7 +562,27 @@ public abstract class AbstractMapleCharacterObject extends AbstractAnimatedMaple
             effLock.unlock();
         }
     }
-    
+
+    public void updateStr(int str){
+        this.str = str;
+        statUpdates.put(MapleStat.STR, str);
+    }
+
+    public void updatetDex(int dex) {
+        this.dex = dex;
+        statUpdates.put(MapleStat.DEX, dex);
+    }
+
+    public void updateInt(int int_) {
+        this.int_ = int_;
+        statUpdates.put(MapleStat.INT, int_);
+    }
+
+    public void updateLuk(int luk) {
+        this.luk = luk;
+        statUpdates.put(MapleStat.LUK, luk);
+    }
+
     private void setStr(int str) {
         this.str = str;
     }
@@ -692,6 +712,17 @@ public abstract class AbstractMapleCharacterObject extends AbstractAnimatedMaple
         statWlock.lock();
         try {
             changeStrDexIntLuk(str, dex, int_, luk, x, silent);
+        } finally {
+            statWlock.unlock();
+            effLock.unlock();
+        }
+    }
+
+    public void setap(int Ap, boolean silent){
+        effLock.lock();
+        statWlock.lock();
+        try {
+            changeRemainingAp(Math.max(0, Ap), silent);
         } finally {
             statWlock.unlock();
             effLock.unlock();

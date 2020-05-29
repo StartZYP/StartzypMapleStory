@@ -207,7 +207,7 @@ public final class MTSHandler extends AbstractMaplePacketHandler {
                             ps.setInt(30, equip.getVicious());
                             ps.setInt(31, equip.getFlag());
                             ps.setInt(32, equip.getItemExp());
-                            ps.setByte(33, equip.getItemLevel());    // thanks Jefe for noticing missing itemlevel labels
+                            ps.setInt(33, equip.getItemLevel());    // thanks Jefe for noticing missing itemlevel labels
                             ps.setInt(34, equip.getRingId());
                         }
                         ps.executeUpdate();

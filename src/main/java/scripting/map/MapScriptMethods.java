@@ -136,7 +136,7 @@ public class MapScriptMethods extends AbstractPlayerInteraction {
             smp.append("You have earned the <").append(questName).append(">").append(rewardstring);
             getPlayer().announce(MaplePacketCreator.getShowQuestCompletion(quest.getId()));
         } else {
-            getPlayer().announce(MaplePacketCreator.earnTitleMessage(status + "/" + infoex + " regions explored."));
+            getPlayer().announce(MaplePacketCreator.earnTitleMessage(status + "/" + infoex + " 地区."));
             etm.append("Trying for the ").append(questName).append(" title.");
             smp.append("You made progress on the ").append(questName).append(" title. ").append(status).append("/").append(infoex);
         }

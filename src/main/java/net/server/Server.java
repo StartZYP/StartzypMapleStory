@@ -927,8 +927,7 @@ public class Server {
             MapleFamily.loadAllFamilies();
             System.out.println("Families loaded in " + ((System.currentTimeMillis() - timeToTake) / 1000.0) + " seconds\r\n");
         }
-        
-        System.out.println();
+
         
         IoBuffer.setUseDirectBuffer(false);     // join IO operations performed by lxconan
         IoBuffer.setAllocator(new SimpleBufferAllocator());

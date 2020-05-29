@@ -3,14 +3,15 @@ package net.server.task;
 import client.MapleCharacter;
 import constants.game.ExpTable;
 import net.server.Server;
-import net.server.world.World;
+import net.server.channel.Channel;
 
 public class MapSleepGiftTask implements Runnable  {
 
     @Override
     public void run() {
-        for (World world : Server.getInstance().getWorlds()) {
-            for (MapleCharacter chr : world.getPlayerStorage().getAllCharacters()) {
+        for (Channel channel:Server.getInstance().getAllChannels()){
+            for (MapleCharacter chr : channel.getPlayerStorage().getAllCharacters()) {
+                //System.out.println(chr.getName()+"周期泡点");
                 if (chr.getMapId()==910000000){
                     chr.getCashShop().gainCash(1,10);
                     int level = chr.getLevel();

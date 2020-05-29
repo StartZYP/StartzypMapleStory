@@ -128,9 +128,9 @@ public class MapleTrade {
             
             chr.gainMeso(exchangeMeso - fee, show, true, show);
             if(fee > 0) {
-                chr.dropMessage(1, "Transaction completed. You received " + GameConstants.numberWithCommas(exchangeMeso - fee) + " mesos due to trade fees.");
+                chr.dropMessage(1, "交易完成了. 你税后收到 " + GameConstants.numberWithCommas(exchangeMeso - fee) + " 金币.");
             } else {
-                chr.dropMessage(1, "Transaction completed. You received " + GameConstants.numberWithCommas(exchangeMeso) + " mesos.");
+                chr.dropMessage(1, "交易完成了. 你收到 " + GameConstants.numberWithCommas(exchangeMeso) + " 金币.");
             }
             
             result = TradeResult.NO_RESPONSE.getValue();
@@ -334,7 +334,7 @@ public class MapleTrade {
             if (local.getChr().getLevel() < 15) {
                 if (local.getChr().getMesosTraded() + local.exchangeMeso > 1000000) {
                     cancelTrade(local.getChr(), TradeResult.NO_RESPONSE);
-                    local.getChr().getClient().announce(MaplePacketCreator.serverNotice(1, "Characters under level 15 may not trade more than 1 million mesos per day."));
+                    local.getChr().getClient().announce(MaplePacketCreator.serverNotice(1, "交易失败，十五级以下的角色每天交易限额不可超过100万."));
                     return;
                 } else {
                     local.getChr().addMesosTraded(local.exchangeMeso);
@@ -342,7 +342,7 @@ public class MapleTrade {
             } else if (partner.getChr().getLevel() < 15) {
                 if (partner.getChr().getMesosTraded() + partner.exchangeMeso > 1000000) {
                     cancelTrade(partner.getChr(), TradeResult.NO_RESPONSE);
-                    partner.getChr().getClient().announce(MaplePacketCreator.serverNotice(1, "Characters under level 15 may not trade more than 1 million mesos per day."));
+                    partner.getChr().getClient().announce(MaplePacketCreator.serverNotice(1, "交易失败，十五级以下的角色每天交易限额不可超过100万."));
                     return;
                 } else {
                     partner.getChr().addMesosTraded(partner.exchangeMeso);

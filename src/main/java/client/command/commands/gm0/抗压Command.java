@@ -23,6 +23,10 @@ public class 抗压Command extends Command {
 	@Override
 	public void execute(MapleClient client, String[] params) {
 		MapleCharacter chr = client.getPlayer();
+		if (!chr.isGM()){
+			chr.yellowMessage("你不是GM不能用");
+			return;
+		}
 		if (chr.get反盾Timer() == null) {
 			chr.set反盾Timer(new Timer());
 			chr.yellowMessage("反盾功能已开启");

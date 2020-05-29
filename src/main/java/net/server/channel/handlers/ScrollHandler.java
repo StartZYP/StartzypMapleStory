@@ -69,7 +69,7 @@ public final class ScrollHandler extends AbstractMaplePacketHandler {
                     legendarySpirit = true;
                     toScroll = (Equip) chr.getInventory(MapleInventoryType.EQUIP).getItem(dst);
                 }
-                byte oldLevel = toScroll.getLevel();
+                int oldLevel = toScroll.getLevel();
                 byte oldSlots = toScroll.getUpgradeSlots();
                 MapleInventory useInventory = chr.getInventory(MapleInventoryType.USE);
                 Item scroll = useInventory.getItem(slot);

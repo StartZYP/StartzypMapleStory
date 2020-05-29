@@ -139,7 +139,7 @@ public final class Channel {
         this.ongoingStartTime = startTime + 10000;  // rude approach to a world's last channel boot time, placeholder for the 1st wedding reservation ever
         this.mapManager = new MapleMapManager(null, world, channel);
         try {
-            port = 7575 + this.channel - 1;
+            port = port + this.channel - 1;
             port += (world * 100);
             ip = YamlConfig.config.server.HOST + ":" + port;
             IoBuffer.setUseDirectBuffer(false);
